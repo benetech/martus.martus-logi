@@ -45,6 +45,48 @@ public abstract class Crypto
         {
             throw new CryptoError("A org.logi.crypto.Crypto.initRandom(...) method has not been called.");
         }
+
+        // NOTE: Override ALL get methods, to ensure this class is never actually used
+        // This change was made by Benetech
+		public void nextBytes(byte[] bytes) 
+		{
+            throw new CryptoError("A org.logi.crypto.Crypto.initRandom(...) method has not been called.");
+		}
+
+		public int nextInt() 
+		{
+            throw new CryptoError("A org.logi.crypto.Crypto.initRandom(...) method has not been called.");
+		}
+
+		public int nextInt(int n) 
+		{
+            throw new CryptoError("A org.logi.crypto.Crypto.initRandom(...) method has not been called.");
+		}
+
+		public long nextLong() 
+		{
+            throw new CryptoError("A org.logi.crypto.Crypto.initRandom(...) method has not been called.");
+		}
+
+		public boolean nextBoolean() 
+		{
+            throw new CryptoError("A org.logi.crypto.Crypto.initRandom(...) method has not been called.");
+		}
+
+		public float nextFloat() 
+		{
+            throw new CryptoError("A org.logi.crypto.Crypto.initRandom(...) method has not been called.");
+		}
+
+		public double nextDouble() 
+		{
+            throw new CryptoError("A org.logi.crypto.Crypto.initRandom(...) method has not been called.");
+		}
+
+		public synchronized double nextGaussian()
+		{
+            throw new CryptoError("A org.logi.crypto.Crypto.initRandom(...) method has not been called.");
+		}
     }
 
 
