@@ -1,7 +1,7 @@
 // Copyright (C) 1998-2000 Logi Ragnarsson
 
 package org.logi.crypto.random;
-import java.util.Random;
+import java.security.SecureRandom;
 
 import org.logi.crypto.Crypto;
 import org.logi.crypto.sign.MD5State;
@@ -40,8 +40,10 @@ import org.logi.crypto.sign.MD5State;
  *
  * @author <a href="http://www.logi.org/~logir/">Logi Ragnarsson</a>
  * (<a href="mailto:logir@logi.org">logir@logi.org</a>)
+ * 
+ * Modified 12/2014 Benetech, using SecureRandom instead of Random for better entropy
  */
-public class RandomMD5 extends Random implements Seedable
+public class RandomMD5 extends SecureRandom implements Seedable
 {
 
     MD5State.SubState ss = new MD5State.SubState();  // Entropy pool
@@ -58,7 +60,7 @@ public class RandomMD5 extends Random implements Seedable
     byte[] unused;
     int unusedPos;
 
-    Random seeder;        // The Random object to gather enthropy from.
+    SecureRandom seeder;        // The Random object to gather enthropy from.
     private int roundEnt; // Bytes to get from seeder
 
     // Initialization thread which gathers initial entropy
@@ -91,7 +93,7 @@ public class RandomMD5 extends Random implements Seedable
      * <code>seeder</code> and collects <code>round</code> bytes from
      * it for every 16 bytes it outputs.
      */
-    public RandomMD5(Random seeder, int seedSize, int round)
+    public RandomMD5(SecureRandom seeder, int seedSize, int round)
     {
         this.seeder = seeder;
         roundEnt = round;
@@ -110,7 +112,7 @@ public class RandomMD5 extends Random implements Seedable
      */
     public RandomMD5()
     {
-        this(new PureSpinner(), 256,4);
+         this(new SecureRandom(), 256,4);
     }
 
     /**
@@ -196,17 +198,17 @@ public class RandomMD5 extends Random implements Seedable
     }
 
     /** Generates the next random number. */
-    protected synchronized int next(int bits)
-    {
-        int r=0;
-        int b=0;
-        while(b<bits) {
-            if(unusedPos>=16)
-                update();
-            r = (r<<8) | (unused[unusedPos++]&0xff);
-            b+=8;
-        }
-        return r >>> (b-bits);
-    }
+//    protected synchronized int next(int bits)
+//    {
+//        int r=0;
+//        int b=0;
+//        while(b<bits) {
+//            if(unusedPos>=16)
+//                update();
+//            r = (r<<8) | (unused[unusedPos++]&0xff);
+//            b+=8;
+//        }
+//        return r >>> (b-bits);
+//    }
 
 }
